@@ -45,7 +45,6 @@ class PolarisActivity : AppCompatActivity() {
 
         setTheme(selectionSpec.themeId)
         super.onCreate(savedInstanceState)
-        selectedItemCollection.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_polaris)
 

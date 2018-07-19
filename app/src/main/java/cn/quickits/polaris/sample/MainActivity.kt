@@ -19,9 +19,7 @@ class MainActivity : AppCompatActivity() {
             RxPermissions(this)
                     .request(Manifest.permission.READ_EXTERNAL_STORAGE)
                     .subscribe {
-                        Polaris.from(this)
-                                .choose()
-                                .forResult(101)
+                        Polaris.from(this).forResult(101)
                     }
         }
     }
@@ -30,8 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
-
-            val list = Polaris.obtainResult(data) ?: return
+            val list = Polaris.obtainResultPath(data) ?: return
 
             for (path in list) {
                 println(path)

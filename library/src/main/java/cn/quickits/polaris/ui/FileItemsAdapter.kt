@@ -1,6 +1,5 @@
 package cn.quickits.polaris.ui
 
-import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import cn.quickits.polaris.R
 import cn.quickits.polaris.data.FileItem
 import cn.quickits.polaris.data.SelectedItemCollection
 import cn.quickits.polaris.data.SelectionSpec
+import cn.quickits.polaris.util.DisplayTextUtils
 
 class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
                        private val selectedItemCollection: SelectedItemCollection) : RecyclerView.Adapter<FileItemsAdapter.FileItemsViewHolder>() {
@@ -50,27 +50,29 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
 
         private val dividerView: View = itemView.findViewById(R.id.divider_view)
 
-        @SuppressLint("SetTextI18n")
         fun onBind(fileItem: FileItem, isLast: Boolean) {
             fileNameView.text = fileItem.name
             fileDescView.text = if (fileItem.isDir) {
                 if (fileItem.isParent) {
-                    "上层文件夹"
+                    DisplayTextUtils.parentFolder(itemView.context)
                 } else {
-                    DateUtils.formatDateTime(itemView.context, fileItem.lastModifyTime, DateUtils.FORMAT_SHOW_DATE)
+                    DisplayTextUtils.fileItemDesc(itemView.context, DateUtils.formatDateTime(itemView.context, fileItem.lastModifyTime, DateUtils.FORMAT_SHOW_DATE))
                 }
             } else {
-                "${DateUtils.formatDateTime(itemView.context, fileItem.lastModifyTime, DateUtils.FORMAT_SHOW_DATE)} • ${fileItem.size}"
+                DisplayTextUtils.fileItemDesc(itemView.context, DateUtils.formatDateTime(itemView.context, fileItem.lastModifyTime, DateUtils.FORMAT_SHOW_DATE), fileItem.size)
             }
 
             if (fileItem.isDir) {
                 checkBoxView.visibility = View.GONE
+                checkBoxView.isChecked = false
             } else {
                 checkBoxView.visibility = View.VISIBLE
                 checkBoxView.isChecked = selectedItemCollection.isSelected(fileItem)
             }
 
             dividerView.visibility = if (isLast) View.GONE else View.VISIBLE
+
+            updateCheckedStyle()
 
             SelectionSpec.INSTANCE.imageEngine.loadImage(
                     itemView.context,
@@ -95,10 +97,19 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
                         selectedItemCollection.add(fileItem)
                     }
 
+                    updateCheckedStyle()
                     onItemClickListener.onFileClick(fileItem.absolutePath)
                 }
             }
 
+        }
+
+        private fun updateCheckedStyle() {
+            if (checkBoxView.isChecked) {
+                itemView.setBackgroundResource(SelectionSpec.INSTANCE.selectedBackgroundRes)
+            } else {
+                itemView.setBackgroundColor(0)
+            }
         }
     }
 

@@ -8,10 +8,20 @@ import cn.quickits.polaris.ui.PolarisActivity
 
 class SelectionCreator constructor(private val polaris: Polaris) {
 
-    private val mSelectionSpec = SelectionSpec.cleanInstance
+    private val selectionSpec = SelectionSpec.cleanInstance
 
     fun imageEngine(imageEngine: ImageEngine): SelectionCreator {
-        mSelectionSpec.imageEngine = imageEngine
+        selectionSpec.imageEngine = imageEngine
+        return this
+    }
+
+    fun maxSelectable(maxCount: Int): SelectionCreator {
+        selectionSpec.maxSelectable = maxCount
+        return this
+    }
+
+    fun selectedBackgroundRes(res: Int): SelectionCreator {
+        selectionSpec.selectedBackgroundRes = res
         return this
     }
 

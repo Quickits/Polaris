@@ -2,20 +2,11 @@ package cn.quickits.polaris.data
 
 import android.content.Context
 import android.net.Uri
-import android.os.Bundle
 import cn.quickits.polaris.util.PathUtils
 
 class SelectedItemCollection(private val context: Context) {
 
-    private lateinit var selectedItems: LinkedHashSet<FileItem>
-
-    companion object {
-        const val STATE_SELECTION = "STATE_SELECTION"
-    }
-
-    fun onCreate(bundle: Bundle?) {
-        selectedItems = linkedSetOf()
-    }
+    private var selectedItems: LinkedHashSet<FileItem> = linkedSetOf()
 
     fun add(item: FileItem) {
         selectedItems.add(item)

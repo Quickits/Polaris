@@ -25,20 +25,22 @@ class Polaris {
     companion object {
 
         @JvmStatic
-        fun from(activity: Activity) = Polaris(activity)
+        fun from(activity: Activity) = SelectionCreator(Polaris(activity))
+
 
         @JvmStatic
-        fun from(fragment: Fragment) = Polaris(fragment)
+        fun from(fragment: Fragment) = SelectionCreator(Polaris(fragment))
 
         @JvmStatic
-        fun obtainResult(data: Intent?): ArrayList<String>? = data?.getStringArrayListExtra(PolarisActivity.EXTRA_RESULT_SELECTION_PATH)
+        fun obtainResult(data: Intent?): ArrayList<String>? = data?.getStringArrayListExtra(PolarisActivity.EXTRA_RESULT_SELECTION)
+
+        @JvmStatic
+        fun obtainResultPath(data: Intent?): ArrayList<String>? = data?.getStringArrayListExtra(PolarisActivity.EXTRA_RESULT_SELECTION_PATH)
 
     }
 
     fun getActivity() = mContext?.get()
 
     fun getFragment() = mFragment?.get()
-
-    fun choose(): SelectionCreator = SelectionCreator(this)
 
 }

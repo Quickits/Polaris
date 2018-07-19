@@ -89,6 +89,7 @@
             android:foreground="?selectableItemBackground"
             android:padding="16dp"
             android:text="@string/apply"
+            android:textColor="?colorAccent"
             android:textSize="16sp" />
     </FrameLayout>
 
