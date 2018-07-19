@@ -25,10 +25,13 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
 
     override fun onBindViewHolder(holder: FileItemsViewHolder, position: Int) {
         val item = list?.get(position) ?: return
-        holder.onBind(item)
+        holder.onBind(item, position == itemCount - 1)
     }
 
     interface OnItemClickListener {
+
+        fun onParentDirClick(path: String)
+
         fun onDirClick(path: String)
 
         fun onFileClick(path: String)
@@ -45,8 +48,10 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
 
         private val checkBoxView: CheckBox = itemView.findViewById(R.id.check_box_view)
 
+        private val dividerView: View = itemView.findViewById(R.id.divider_view)
+
         @SuppressLint("SetTextI18n")
-        fun onBind(fileItem: FileItem) {
+        fun onBind(fileItem: FileItem, isLast: Boolean) {
             fileNameView.text = fileItem.name
             fileDescView.text = if (fileItem.isDir) {
                 if (fileItem.isParent) {
@@ -65,6 +70,8 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
                 checkBoxView.isChecked = selectedItemCollection.isSelected(fileItem)
             }
 
+            dividerView.visibility = if (isLast) View.GONE else View.VISIBLE
+
             SelectionSpec.INSTANCE.imageEngine.loadImage(
                     itemView.context,
                     iconView,
@@ -74,7 +81,11 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
 
             itemView.setOnClickListener {
                 if (fileItem.isDir) {
-                    onItemClickListener.onDirClick(fileItem.file.absolutePath)
+                    if (fileItem.isParent) {
+                        onItemClickListener.onParentDirClick(fileItem.file.absolutePath)
+                    } else {
+                        onItemClickListener.onDirClick(fileItem.file.absolutePath)
+                    }
                 } else {
                     if (selectedItemCollection.isSelected(fileItem)) {
                         checkBoxView.isChecked = false

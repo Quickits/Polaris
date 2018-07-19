@@ -10,7 +10,8 @@ class GlideEngine : ImageEngine {
     override fun loadImage(context: Context, imageView: ImageView, uri: String, placeholder: Int) {
         Glide.with(context)
                 .load(uri)
-                .placeholder(placeholder)
+                .error(placeholder)
+                .centerCrop()
                 .into(imageView)
     }
 

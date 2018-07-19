@@ -944,10 +944,10 @@ object FileUtils {
     private fun byte2FitMemorySize(byteNum: Long): String {
         return when {
             byteNum < 0 -> "shouldn't be less than zero!"
-            byteNum < 1024 -> String.format("%.3fB", byteNum.toDouble())
-            byteNum < 1048576 -> String.format("%.3fKB", byteNum.toDouble() / 1024)
-            byteNum < 1073741824 -> String.format("%.3fMB", byteNum.toDouble() / 1048576)
-            else -> String.format("%.3fGB", byteNum.toDouble() / 1073741824)
+            byteNum < 1024 -> String.format("%.2f B", byteNum.toDouble())
+            byteNum < 1048576 -> String.format("%.2f KB", byteNum.toDouble() / 1024)
+            byteNum < 1073741824 -> String.format("%.2f MB", byteNum.toDouble() / 1048576)
+            else -> String.format("%.2f GB", byteNum.toDouble() / 1073741824)
         }
     }
 

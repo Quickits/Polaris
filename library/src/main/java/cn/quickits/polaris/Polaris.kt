@@ -10,6 +10,7 @@ import java.lang.ref.WeakReference
 class Polaris {
 
     private var mContext: WeakReference<Activity>? = null
+
     private var mFragment: WeakReference<Fragment>? = null
 
     private constructor(fragment: Fragment) : this(fragment.activity, fragment)

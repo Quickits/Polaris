@@ -62,7 +62,7 @@
             android:layout_gravity="end"
             android:foreground="?selectableItemBackground"
             android:padding="16dp"
-            android:text="使用"
+            android:text="@string/apply"
             android:textSize="16sp" />
 
     </FrameLayout>
