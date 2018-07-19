@@ -18,10 +18,9 @@ Polaris is a file chooser for Android
 
 ```gradle
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
@@ -49,8 +48,7 @@ So if you are targeting Android 6.0+, you need to handle runtime permission requ
 Start `PolarisActivity` from current `Activity` or `Fragment`:
 
 ```kotlin
-Polaris.from(this)
-        .forResult(REQUEST_CODE_CHOOSE)
+Polaris.from(this).forResult(REQUEST_CODE_CHOOSE)
 ```
 
 ### Receive Result
@@ -61,9 +59,6 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     if (requestCode == REQUEST_CODE_CHOOSE && resultCode == Activity.RESULT_OK) {
         val uris = Polaris.obtainResult(data)
         val paths = Polaris.obtainPathResult(data)
-
-        Log.d("charles", "uris: $uris")
-        Log.d("charles", "paths: $paths")
     }
 }
 ```
