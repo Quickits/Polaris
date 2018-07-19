@@ -105,11 +105,7 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
         }
 
         private fun updateCheckedStyle() {
-            if (checkBoxView.isChecked) {
-                itemView.setBackgroundResource(SelectionSpec.INSTANCE.selectedBackgroundRes)
-            } else {
-                itemView.setBackgroundColor(0)
-            }
+            itemView.isSelected = checkBoxView.isChecked
         }
     }
 

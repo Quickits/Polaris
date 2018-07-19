@@ -9,7 +9,6 @@ import cn.quickits.polaris.engine.impl.PolarisExtensionIconEngine
 class SelectionSpec {
     var maxSelectable = 0
     var themeId: Int = R.style.Polaris
-    var selectedBackgroundRes: Int = R.drawable.bg_item_selected
     var imageEngine: ImageEngine = GlideEngine()
     var extensionIconEngine: ExtensionIconEngine = PolarisExtensionIconEngine()
 

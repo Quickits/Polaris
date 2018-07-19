@@ -20,11 +20,6 @@ class SelectionCreator constructor(private val polaris: Polaris) {
         return this
     }
 
-    fun selectedBackgroundRes(res: Int): SelectionCreator {
-        selectionSpec.selectedBackgroundRes = res
-        return this
-    }
-
     fun forResult(requestCode: Int) {
         val activity = polaris.getActivity()
 
