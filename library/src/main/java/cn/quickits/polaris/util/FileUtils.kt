@@ -941,7 +941,7 @@ object FileUtils {
      * @return 合适内存大小
      */
     @SuppressLint("DefaultLocale")
-    private fun byte2FitMemorySize(byteNum: Long): String {
+    public fun byte2FitMemorySize(byteNum: Long): String {
         return when {
             byteNum < 0 -> "shouldn't be less than zero!"
             byteNum < 1024 -> String.format("%.2f B", byteNum.toDouble())

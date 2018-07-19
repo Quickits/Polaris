@@ -5,40 +5,55 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.ListPopupWindow
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import cn.quickits.polaris.R
 import cn.quickits.polaris.data.FileItem
 import cn.quickits.polaris.data.PageStack
 import cn.quickits.polaris.data.SelectedItemCollection
+import cn.quickits.polaris.data.SelectionSpec
+import cn.quickits.polaris.loader.impl.FileLoader
+import cn.quickits.polaris.loader.impl.MediaLoader
 import cn.quickits.polaris.util.DisplayTextUtils
 import kotlinx.android.synthetic.main.activity_polaris.*
 
 
 class PolarisActivity : AppCompatActivity() {
 
+    private lateinit var selectionSpec: SelectionSpec
+
+    private lateinit var selectedItemCollection: SelectedItemCollection
+
     private lateinit var adapter: FileItemsAdapter
+
+    private lateinit var fileLoader: FileLoader
+
+    private lateinit var mediaLoader: MediaLoader
 
     private lateinit var fileItemsViewModel: FileItemsViewModel
 
-    private val selectedItemCollection = SelectedItemCollection()
+    private lateinit var listPopupWindow: ListPopupWindow
 
     private val pageStack = PageStack()
 
+    private var isFileSystemMode = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        initObject()
+
+        setTheme(selectionSpec.themeId)
         super.onCreate(savedInstanceState)
         selectedItemCollection.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_polaris)
 
-        adapter = FileItemsAdapter(onItemClickListener, selectedItemCollection)
-        content_view.adapter = adapter
+        initView()
 
         showLoading()
 
-        fileItemsViewModel = ViewModelProviders.of(this).get(FileItemsViewModel::class.java)
         fileItemsViewModel.fileItemsLiveData.observe(this, Observer {
-            loading_view.visibility = View.GONE
             if (it == null) {
                 showError()
             } else {
@@ -48,16 +63,67 @@ class PolarisActivity : AppCompatActivity() {
 
         apply_view.setOnClickListener {
             val result = Intent()
-            result.putStringArrayListExtra(EXTRA_RESULT_SELECTION_PATH, ArrayList(selectedItemCollection.asListOfString()))
+            result.putParcelableArrayListExtra(EXTRA_RESULT_SELECTION, ArrayList(selectedItemCollection.asListOfUri()))
+            result.putStringArrayListExtra(EXTRA_RESULT_SELECTION_PATH, ArrayList(selectedItemCollection.asListOfPath()))
             setResult(RESULT_OK, result)
             finish()
         }
 
+        listPopupWindow.setOnItemClickListener { _, _, position, _ ->
+            when (position) {
+                0 -> {
+                    toolbar_title_view.setText(R.string.category_image)
+                    fileItemsViewModel.fileItemsLiveData.loader = mediaLoader
+                    fileItemsViewModel.fileItemsLiveData.refresh(mediaLoader.currentPath())
+                    isFileSystemMode = false
+                }
+                1 -> {
+                    toolbar_title_view.setText(R.string.category_file)
+                    fileItemsViewModel.fileItemsLiveData.loader = fileLoader
+                    fileItemsViewModel.fileItemsLiveData.refresh(fileLoader.currentPath())
+                    isFileSystemMode = true
+                }
+            }
+            listPopupWindow.dismiss()
+        }
+    }
+
+    private fun initObject() {
+        selectionSpec = SelectionSpec.INSTANCE
+
+        selectedItemCollection = SelectedItemCollection(this)
+
+        adapter = FileItemsAdapter(onItemClickListener, selectedItemCollection)
+
+        fileLoader = FileLoader()
+        mediaLoader = MediaLoader.newInstance(this)
+
+        fileItemsViewModel = ViewModelProviders.of(this, FileItemsViewModelFactory(mediaLoader)).get(FileItemsViewModel::class.java)
+    }
+
+    private fun initView() {
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp)
 
-        select_count_view.text = DisplayTextUtils.selectProgress(this@PolarisActivity,
-                selectedItemCollection.count())
+        toolbar_title_view.setText(R.string.category_image)
+        toolbar_title_view.setOnClickListener {
+            listPopupWindow.show()
+        }
+
+        listPopupWindow = ListPopupWindow(this)
+        listPopupWindow.isModal = true
+        val density = resources.displayMetrics.density
+        listPopupWindow.setContentWidth((160 * density).toInt())
+        listPopupWindow.horizontalOffset = (-8 * density).toInt()
+        listPopupWindow.verticalOffset = (-48 * density).toInt()
+        listPopupWindow.anchorView = toolbar_title_view
+        listPopupWindow.setAdapter(ArrayAdapter.createFromResource(this, R.array.me, R.layout.item_category))
+
+        content_view.adapter = adapter
+
+        select_count_view.text = DisplayTextUtils.selectProgress(this@PolarisActivity, selectedItemCollection.count())
     }
 
     private val onItemClickListener: FileItemsAdapter.OnItemClickListener by lazy {
@@ -65,13 +131,17 @@ class PolarisActivity : AppCompatActivity() {
 
             override fun onParentDirClick(path: String) {
                 fileItemsViewModel.fileItemsLiveData.refresh(path)
-                pageStack.pop()
+                if (isFileSystemMode) {
+                    pageStack.pop()
+                }
             }
 
             override fun onDirClick(path: String) {
                 fileItemsViewModel.fileItemsLiveData.refresh(path)
-                pageStack.peek()?.pagePosition = content_view.computeVerticalScrollOffset()
-                pageStack.push(path)
+                if (isFileSystemMode) {
+                    pageStack.peek()?.pagePosition = content_view.computeVerticalScrollOffset()
+                    pageStack.push(path)
+                }
             }
 
             override fun onFileClick(path: String) {
@@ -80,7 +150,6 @@ class PolarisActivity : AppCompatActivity() {
             }
         }
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
@@ -93,6 +162,11 @@ class PolarisActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (!isFileSystemMode) {
+            finish()
+            return
+        }
+
         pageStack.pop()
         val page = pageStack.peek()
         if (page != null) {
@@ -127,6 +201,7 @@ class PolarisActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val EXTRA_RESULT_SELECTION = "EXTRA_RESULT_SELECTION"
         const val EXTRA_RESULT_SELECTION_PATH = "EXTRA_RESULT_SELECTION_PATH"
     }
 }

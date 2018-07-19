@@ -82,9 +82,9 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
             itemView.setOnClickListener {
                 if (fileItem.isDir) {
                     if (fileItem.isParent) {
-                        onItemClickListener.onParentDirClick(fileItem.file.absolutePath)
+                        onItemClickListener.onParentDirClick(fileItem.absolutePath)
                     } else {
-                        onItemClickListener.onDirClick(fileItem.file.absolutePath)
+                        onItemClickListener.onDirClick(fileItem.absolutePath)
                     }
                 } else {
                     if (selectedItemCollection.isSelected(fileItem)) {
@@ -95,7 +95,7 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
                         selectedItemCollection.add(fileItem)
                     }
 
-                    onItemClickListener.onFileClick(fileItem.file.absolutePath)
+                    onItemClickListener.onFileClick(fileItem.absolutePath)
                 }
             }
 

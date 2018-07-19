@@ -1,9 +1,10 @@
 package cn.quickits.polaris.ui
 
 import android.arch.lifecycle.ViewModel
+import cn.quickits.polaris.loader.FileItemsLoader
 
-class FileItemsViewModel : ViewModel() {
+class FileItemsViewModel(loader: FileItemsLoader) : ViewModel() {
 
-    val fileItemsLiveData: FileItemsLiveData = FileItemsLiveData()
+    val fileItemsLiveData: FileItemsLiveData = FileItemsLiveData(loader)
 
 }

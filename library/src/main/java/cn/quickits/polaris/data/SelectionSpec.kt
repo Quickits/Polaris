@@ -1,6 +1,7 @@
 package cn.quickits.polaris.data
 
 import android.content.pm.ActivityInfo
+import cn.quickits.polaris.R
 import cn.quickits.polaris.engine.ExtensionIconEngine
 import cn.quickits.polaris.engine.ImageEngine
 import cn.quickits.polaris.engine.impl.GlideEngine
@@ -12,7 +13,7 @@ class SelectionSpec {
     var isShowProgressRate = false
     var maxSelectable = 0
     var gridExpectedSize = 0
-    var themeId = 0
+    var themeId = R.style.Polaris
     var imageEngine: ImageEngine = GlideEngine()
     var extensionIconEngine: ExtensionIconEngine = PolarisExtensionIconEngine()
 

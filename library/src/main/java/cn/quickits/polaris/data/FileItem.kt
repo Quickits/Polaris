@@ -1,28 +1,33 @@
 package cn.quickits.polaris.data
 
+import android.content.ContentUris
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 import cn.quickits.polaris.util.FileUtils
 import java.io.File
 
 data class FileItem(
-        val file: File,
+        val uri: Uri,
         var name: String,
-        val icon: String,
+        val icon: Uri,
         var size: String,
         val lastModifyTime: Long,
         val mimeType: String,   // file only
         val extension: String,  // file only
+        val absolutePath: String,
         val isDir: Boolean,
         var isParent: Boolean
 ) {
 
     override fun hashCode(): Int {
-        return file.absolutePath.hashCode()
+        return uri.path.hashCode()
     }
 
     override fun equals(other: Any?): Boolean {
         if (other is FileItem) {
-            return other.file.absolutePath == file.absolutePath
+            return other.uri.path == uri.path
         }
         return false
     }
@@ -50,18 +55,40 @@ data class FileItem(
             }
 
             return FileItem(
-                    file,
+                    Uri.fromFile(file),
                     file.name,
-                    icon,
+                    Uri.parse(icon),
                     FileUtils.getFileSize(file),
                     file.lastModified(),
                     mimeType,
                     extension,
+                    file.absolutePath,
                     file.isDirectory,
                     false
             )
         }
 
+        fun valueOf(cursor: Cursor): FileItem {
+            val id = cursor.getLong(cursor.getColumnIndex(MediaStore.Files.FileColumns._ID))
+            val name = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.TITLE))
+            val size = cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns.SIZE))
+            val mimeType = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.MIME_TYPE))
+            val date = cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns.DATE_ADDED)) * 1000
+            val uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
+
+            return FileItem(
+                    uri,
+                    name,
+                    uri,
+                    FileUtils.byte2FitMemorySize(size),
+                    date,
+                    mimeType,
+                    "",
+                    "",
+                    false,
+                    false
+            )
+        }
     }
 
 }

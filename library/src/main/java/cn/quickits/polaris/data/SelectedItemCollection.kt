@@ -1,8 +1,11 @@
 package cn.quickits.polaris.data
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import cn.quickits.polaris.util.PathUtils
 
-class SelectedItemCollection {
+class SelectedItemCollection(private val context: Context) {
 
     private lateinit var selectedItems: LinkedHashSet<FileItem>
 
@@ -24,13 +27,21 @@ class SelectedItemCollection {
 
     fun count(): Int = selectedItems.size
 
-    fun asListOfString(): List<String> {
+    fun asListOfUri(): List<Uri> {
+        val uris = mutableListOf<Uri>()
+        for (item in selectedItems) {
+            uris.add(item.uri)
+        }
+        return uris
+    }
+
+    fun asListOfPath(): List<String> {
         val paths = mutableListOf<String>()
 
         for (item in selectedItems) {
-            paths.add(item.file.absolutePath)
+            val path = PathUtils.getPath(context, item.uri) ?: continue
+            paths.add(path)
         }
-
         return paths
     }
 }
