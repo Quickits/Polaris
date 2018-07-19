@@ -1,8 +1,10 @@
 package cn.quickits.polaris.data
 
 import android.content.pm.ActivityInfo
+import cn.quickits.polaris.engine.ExtensionIconEngine
 import cn.quickits.polaris.engine.ImageEngine
 import cn.quickits.polaris.engine.impl.GlideEngine
+import cn.quickits.polaris.engine.impl.PolarisExtensionIconEngine
 
 class SelectionSpec {
 
@@ -12,6 +14,7 @@ class SelectionSpec {
     var gridExpectedSize = 0
     var themeId = 0
     var imageEngine: ImageEngine = GlideEngine()
+    var extensionIconEngine: ExtensionIconEngine = PolarisExtensionIconEngine()
 
     private fun reset() {
         orientation = 0

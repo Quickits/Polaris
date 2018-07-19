@@ -40,12 +40,12 @@ data class FileItem(
             val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension) ?: ""
 
             val icon = if (file.isDirectory) {
-                "file:///android_asset/file_extension_icons/file_extension_folder.png"
+                SelectionSpec.INSTANCE.extensionIconEngine.getFolderIcon()
             } else {
                 if (mimeType.startsWith("image")) {
                     "file://${file.absolutePath}"
                 } else {
-                    "file:///android_asset/file_extension_icons/file_extension_${extension.toLowerCase()}.png"
+                    SelectionSpec.INSTANCE.extensionIconEngine.getFileExtendsionIcon(extension)
                 }
             }
 
