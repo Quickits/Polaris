@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="me">
+    <string-array name="polaris_category">
         <item>@string/category_image</item>
         <item>@string/category_file</item>
     </string-array>

@@ -17,7 +17,7 @@ import cn.quickits.polaris.data.SelectionSpec
 import cn.quickits.polaris.loader.impl.FileLoader
 import cn.quickits.polaris.loader.impl.MediaLoader
 import cn.quickits.polaris.util.DisplayTextUtils
-import kotlinx.android.synthetic.main.activity_polaris.*
+import kotlinx.android.synthetic.main.polaris_activity_polaris.*
 
 
 class PolarisActivity : AppCompatActivity() {
@@ -46,7 +46,7 @@ class PolarisActivity : AppCompatActivity() {
         setTheme(selectionSpec.themeId)
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_polaris)
+        setContentView(R.layout.polaris_activity_polaris)
 
         initView()
 
@@ -104,7 +104,7 @@ class PolarisActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.polaris_ic_close_white_24dp)
 
         toolbar_title_view.setText(R.string.category_image)
         toolbar_title_view.setOnClickListener {
@@ -118,7 +118,7 @@ class PolarisActivity : AppCompatActivity() {
         listPopupWindow.horizontalOffset = (-8 * density).toInt()
         listPopupWindow.verticalOffset = (-48 * density).toInt()
         listPopupWindow.anchorView = toolbar_title_view
-        listPopupWindow.setAdapter(ArrayAdapter.createFromResource(this, R.array.me, R.layout.item_category))
+        listPopupWindow.setAdapter(ArrayAdapter.createFromResource(this, R.array.polaris_category, R.layout.polaris_item_category))
 
         content_view.adapter = adapter
 

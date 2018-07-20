@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/ic_checkitem_checked_16dp" android:state_checked="true" />
+    <item android:drawable="@drawable/polaris_ic_checkitem_checked_24dp" android:state_checked="true" />
 
-    <item android:drawable="@drawable/ic_checkitem_check_16dp" />
+    <item android:drawable="@drawable/polaris_ic_checkitem_check_24dp" />
 
 </selector>

@@ -19,7 +19,7 @@
             android:id="@+id/toolbar_title_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+            android:drawableEnd="@drawable/polaris_ic_arrow_drop_down_black_24dp"
             android:drawablePadding="16dp"
             android:foreground="?selectableItemBackground"
             android:gravity="center"

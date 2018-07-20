@@ -38,7 +38,7 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
     }
 
     inner class FileItemsViewHolder(parent: ViewGroup) :
-            RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_fileitem, parent, false)) {
+            RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.polaris_item_fileitem, parent, false)) {
 
         private val iconView: ImageView = itemView.findViewById(R.id.icon_view)
 
@@ -78,7 +78,7 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
                     itemView.context,
                     iconView,
                     fileItem.icon,
-                    R.drawable.file_extension_others
+                    R.drawable.polaris_file_extension_others
             )
 
             itemView.setOnClickListener {

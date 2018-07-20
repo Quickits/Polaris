@@ -2,6 +2,7 @@ package cn.quickits.polaris
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.support.v4.app.Fragment
 import cn.quickits.polaris.selection.SelectionCreator
 import cn.quickits.polaris.ui.PolarisActivity
@@ -32,7 +33,7 @@ class Polaris {
         fun from(fragment: Fragment) = SelectionCreator(Polaris(fragment))
 
         @JvmStatic
-        fun obtainResult(data: Intent?): ArrayList<String>? = data?.getStringArrayListExtra(PolarisActivity.EXTRA_RESULT_SELECTION)
+        fun obtainResult(data: Intent?): ArrayList<Uri>? = data?.getParcelableArrayListExtra(PolarisActivity.EXTRA_RESULT_SELECTION)
 
         @JvmStatic
         fun obtainResultPath(data: Intent?): ArrayList<String>? = data?.getStringArrayListExtra(PolarisActivity.EXTRA_RESULT_SELECTION_PATH)
