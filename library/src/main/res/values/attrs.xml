@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="polaris_toolbar" format="reference" />
-    <attr name="polaris_toolbar_elevation" format="dimension" />
-    <attr name="polaris_toolbar_text_color" format="reference|color" />
-    <attr name="polaris_file_item_background_selector" format="reference" />
-    <attr name="polaris_file_item_name_text_color_selector" format="reference|color" />
-    <attr name="polaris_file_item_desc_text_color_selector" format="reference|color" />
-    <attr name="polaris_file_item_checkbox_btn_selector" format="reference" />
+    <attr name="polarisToolbar" format="reference" />
+    <attr name="polarisToolbarElevation" format="dimension" />
+    <attr name="polarisToolbarNavigationIcon" format="reference" />
+    <attr name="polarisToolbarTextColor" format="reference|color" />
+    <attr name="polarisToolbarTextDropDownIcon" format="reference" />
+
+    <attr name="polarisBottomToolbarBackground" format="reference|color" />
+    <attr name="polarisBottomToolbarApplyTextColor" format="reference|color" />
+    <attr name="polarisBottomToolbarSelectCountTextColor" format="reference|color" />
+
+    <attr name="polarisFileItemBackground" format="reference" />
+    <attr name="polarisFileItemNameTextColor" format="reference|color" />
+    <attr name="polarisFileItemDescTextColor" format="reference|color" />
+    <attr name="polarisFileItemCheckboxBtn" format="reference" />
 </resources>

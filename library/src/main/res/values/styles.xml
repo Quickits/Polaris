@@ -6,13 +6,21 @@
         <item name="colorPrimaryDark">#3c8f96</item>
         <item name="colorAccent">#5bc4c8</item>
 
-        <item name="polaris_toolbar">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="polaris_toolbar_elevation">0dp</item>
-        <item name="polaris_toolbar_text_color">#FFF</item>
-        <item name="polaris_file_item_background_selector">@drawable/polaris_file_item_background_selector</item>
-        <item name="polaris_file_item_checkbox_btn_selector">@drawable/polaris_file_item_checkbox_selector</item>
-        <item name="polaris_file_item_name_text_color_selector">@color/polaris_file_item_name_text_color_selector</item>
-        <item name="polaris_file_item_desc_text_color_selector">@color/polaris_file_item_desc_text_color_selector</item>
+
+        <item name="polarisToolbar">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="polarisToolbarElevation">0dp</item>
+        <item name="polarisToolbarNavigationIcon">@drawable/polaris_ic_close_white_24dp</item>
+        <item name="polarisToolbarTextColor">#FFF</item>
+        <item name="polarisToolbarTextDropDownIcon">@drawable/polaris_ic_arrow_drop_down_black_24dp</item>
+
+        <item name="polarisBottomToolbarBackground">#FFF</item>
+        <item name="polarisBottomToolbarApplyTextColor">@color/polaris_bottom_toolbar_apply_text_color_selector</item>
+        <item name="polarisBottomToolbarSelectCountTextColor">#000</item>
+
+        <item name="polarisFileItemBackground">@drawable/polaris_file_item_background_selector</item>
+        <item name="polarisFileItemCheckboxBtn">@drawable/polaris_file_item_checkbox_selector</item>
+        <item name="polarisFileItemNameTextColor">@color/polaris_file_item_name_text_color_selector</item>
+        <item name="polarisFileItemDescTextColor">@color/polaris_file_item_desc_text_color_selector</item>
     </style>
 
 </resources>

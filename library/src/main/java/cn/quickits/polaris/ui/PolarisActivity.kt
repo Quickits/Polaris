@@ -104,7 +104,6 @@ class PolarisActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.polaris_ic_close_white_24dp)
 
         toolbar_title_view.setText(R.string.category_image)
         toolbar_title_view.setOnClickListener {
@@ -122,7 +121,7 @@ class PolarisActivity : AppCompatActivity() {
 
         content_view.adapter = adapter
 
-        select_count_view.text = DisplayTextUtils.selectProgress(this@PolarisActivity, selectedItemCollection.count())
+        updateBottomToolbar()
     }
 
     private val onItemClickListener: FileItemsAdapter.OnItemClickListener by lazy {
@@ -144,8 +143,7 @@ class PolarisActivity : AppCompatActivity() {
             }
 
             override fun onFileClick(path: String) {
-                select_count_view.text = DisplayTextUtils.selectProgress(this@PolarisActivity,
-                        selectedItemCollection.count())
+                updateBottomToolbar()
             }
         }
     }
@@ -197,6 +195,11 @@ class PolarisActivity : AppCompatActivity() {
         loading_view.visibility = View.GONE
         content_view.visibility = View.GONE
         error_view.visibility = View.VISIBLE
+    }
+
+    private fun updateBottomToolbar() {
+        select_count_view.text = DisplayTextUtils.selectProgress(this@PolarisActivity, selectedItemCollection.count())
+        apply_view.isEnabled = selectedItemCollection.isNotEmpty()
     }
 
     companion object {

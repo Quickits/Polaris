@@ -16,6 +16,8 @@ class SelectedItemCollection(private val context: Context) {
 
     fun isSelected(item: FileItem): Boolean = selectedItems.contains(item)
 
+    fun isNotEmpty(): Boolean = selectedItems.isNotEmpty()
+
     fun count(): Int = selectedItems.size
 
     fun asListOfUri(): List<Uri> {
