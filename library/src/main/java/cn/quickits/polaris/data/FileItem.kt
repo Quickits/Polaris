@@ -44,20 +44,20 @@ data class FileItem(
             val extension = FileUtils.getFileExtension(file) ?: ""
             val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension) ?: ""
 
-            val icon = if (file.isDirectory) {
-                SelectionSpec.INSTANCE.extensionIconEngine.getFolderIcon()
+            val icon: Uri = if (file.isDirectory) {
+                SelectionSpec.INSTANCE.extensionIconEngine?.folderIcon ?: Uri.EMPTY
             } else {
                 if (mimeType.startsWith("image")) {
-                    "file://${file.absolutePath}"
+                    Uri.parse("file://${file.absolutePath}")
                 } else {
-                    SelectionSpec.INSTANCE.extensionIconEngine.getFileExtendsionIcon(extension)
+                    SelectionSpec.INSTANCE.extensionIconEngine?.getFileExtensionIcon(extension) ?: Uri.EMPTY
                 }
             }
 
             return FileItem(
                     Uri.fromFile(file),
                     file.name,
-                    Uri.parse(icon),
+                    icon,
                     FileUtils.getFileSize(file),
                     file.lastModified(),
                     mimeType,

@@ -4,6 +4,7 @@ import android.content.Intent
 import cn.quickits.polaris.Polaris
 import cn.quickits.polaris.data.SelectionSpec
 import cn.quickits.polaris.engine.ImageEngine
+import cn.quickits.polaris.iconpacks.core.IconPacksEngine
 import cn.quickits.polaris.ui.PolarisActivity
 
 class SelectionCreator constructor(private val polaris: Polaris) {
@@ -15,8 +16,13 @@ class SelectionCreator constructor(private val polaris: Polaris) {
         return this
     }
 
-    fun maxSelectable(maxCount: Int): SelectionCreator {
-        selectionSpec.maxSelectable = maxCount
+//    fun maxSelectable(maxCount: Int): SelectionCreator {
+//        selectionSpec.maxSelectable = maxCount
+//        return this
+//    }
+
+    fun iconPacksEngine(iconPacksEngine: IconPacksEngine): SelectionCreator {
+        selectionSpec.extensionIconEngine = iconPacksEngine
         return this
     }
 

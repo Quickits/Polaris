@@ -19,7 +19,18 @@ class MainActivity : AppCompatActivity() {
             RxPermissions(this)
                     .request(Manifest.permission.READ_EXTERNAL_STORAGE)
                     .subscribe {
-                        Polaris.from(this).forResult(101)
+                        Polaris.from(this)
+//                                .iconPacksEngine(object : IconPacksEngine {
+//                                    override fun getFolderIcon(): String {
+//                                        return "https://wx1.sinaimg.cn/mw690/51ff3e45gy1ftt4koe4ifj20zk0qodlj.jpg"
+//                                    }
+//
+//                                    override fun getFileExtensionIcon(p0: String?): String {
+//                                        return "https://wx1.sinaimg.cn/mw690/51ff3e45gy1ftt4koe4ifj20zk0qodlj.jpg"
+//                                    }
+//
+//                                })
+                                .forResult(101)
                     }
         }
     }

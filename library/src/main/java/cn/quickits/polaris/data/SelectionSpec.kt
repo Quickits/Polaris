@@ -1,16 +1,20 @@
 package cn.quickits.polaris.data
 
 import cn.quickits.polaris.R
-import cn.quickits.polaris.engine.ExtensionIconEngine
 import cn.quickits.polaris.engine.ImageEngine
 import cn.quickits.polaris.engine.impl.GlideEngine
-import cn.quickits.polaris.engine.impl.PolarisExtensionIconEngine
+import cn.quickits.polaris.iconpacks.DefaultIconPacksEngine
+import cn.quickits.polaris.iconpacks.core.IconPacksEngine
 
 class SelectionSpec {
     var maxSelectable = 0
     var themeId: Int = R.style.Polaris
     var imageEngine: ImageEngine = GlideEngine()
-    var extensionIconEngine: ExtensionIconEngine = PolarisExtensionIconEngine()
+    var extensionIconEngine: IconPacksEngine? = null
+        get() {
+            if (field == null) extensionIconEngine = DefaultIconPacksEngine()
+            return field
+        }
 
     private fun reset() {
         maxSelectable = 0
