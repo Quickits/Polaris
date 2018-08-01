@@ -18,6 +18,8 @@ class SelectionSpec {
 
     private fun reset() {
         maxSelectable = 0
+        themeId = R.style.Polaris
+        extensionIconEngine = null
         imageEngine = GlideEngine()
     }
 
