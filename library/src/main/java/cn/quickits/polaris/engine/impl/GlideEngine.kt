@@ -8,10 +8,17 @@ import com.bumptech.glide.Glide
 
 class GlideEngine : ImageEngine {
 
-    override fun loadImage(context: Context, imageView: ImageView, uri: Uri, placeholder: Int) {
+    override fun loadFileIcon(context: Context, imageView: ImageView, uri: Uri, placeholder: Int) {
         Glide.with(context)
                 .load(uri)
                 .error(placeholder)
+                .fitCenter()
+                .into(imageView)
+    }
+
+    override fun loadImage(context: Context, imageView: ImageView, uri: Uri) {
+        Glide.with(context)
+                .load(uri)
                 .centerCrop()
                 .into(imageView)
     }

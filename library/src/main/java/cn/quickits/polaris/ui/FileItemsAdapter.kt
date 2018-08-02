@@ -74,12 +74,20 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
 
             updateCheckedStyle()
 
-            SelectionSpec.INSTANCE.imageEngine.loadImage(
-                    itemView.context,
-                    iconView,
-                    fileItem.icon,
-                    R.drawable.polaris_file_extension_others
-            )
+            if (fileItem.mimeType.startsWith("image")) {
+                SelectionSpec.INSTANCE.imageEngine.loadImage(
+                        itemView.context,
+                        iconView,
+                        fileItem.icon
+                )
+            } else {
+                SelectionSpec.INSTANCE.imageEngine.loadFileIcon(
+                        itemView.context,
+                        iconView,
+                        fileItem.icon,
+                        R.drawable.polaris_file_extension_others
+                )
+            }
 
             itemView.setOnClickListener {
                 if (fileItem.isDir) {

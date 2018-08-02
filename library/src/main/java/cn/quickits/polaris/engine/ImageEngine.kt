@@ -6,6 +6,8 @@ import android.widget.ImageView
 
 interface ImageEngine {
 
-    fun loadImage(context: Context, imageView: ImageView, uri: Uri, placeholder: Int)
+    fun loadImage(context: Context, imageView: ImageView, uri: Uri)
+
+    fun loadFileIcon(context: Context, imageView: ImageView, uri: Uri, placeholder: Int)
 
 }

@@ -39,8 +39,8 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:1.0.2"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
 
-    implementation "cn.quickits.Polaris-IconPacks:core:1.0.2"
-    implementation("cn.quickits.Polaris-IconPacks:default:1.0.2") {
+    implementation "cn.quickits.Polaris-IconPacks:core:1.0.5"
+    implementation("cn.quickits.Polaris-IconPacks:default:1.0.5") {
         exclude group: "com.android.support"
     }
 }
