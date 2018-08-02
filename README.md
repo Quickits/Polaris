@@ -4,17 +4,18 @@
 
 Polaris is a file chooser for Android
 
-* Use it in Activity or Fragment
-* Choose All files
-* Apply different themes, you can setup custom themes
+- Use it in Activity or Fragment
+- Choose All files
+- Custom themes
+- Custom file extension icon
 
-| Images | FileSystem |
-| :-------------: | :-------------: |
-| ![Images](./art/Images.png) | ![FileSystem](./art/FileSystem.png)
+|           Images            |              FileSystem              |
+| :-------------------------: | :----------------------------------: |
+| ![Images](./art/images.png) | ![FileSystem](./art/file_system.png) |
 
 ## Download
 
-+ Add the JitPack repository to your build file
+- Add the JitPack repository to your build file
 
 ```gradle
 allprojects {
@@ -24,7 +25,7 @@ allprojects {
 }
 ```
 
-+ Add the dependency
+- Add the dependency
 
 ```gradle
 dependencies {
@@ -38,8 +39,8 @@ dependencies {
 
 The library requires two permissions:
 
-+ `android.permission.READ_EXTERNAL_STORAGE`
-+ `android.permission.WRITE_EXTERNAL_STORAGE`
+- `android.permission.READ_EXTERNAL_STORAGE`
+- `android.permission.WRITE_EXTERNAL_STORAGE`
 
 So if you are targeting Android 6.0+, you need to handle runtime permission request before next step.
 
