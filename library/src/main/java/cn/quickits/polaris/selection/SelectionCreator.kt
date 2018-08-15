@@ -26,6 +26,11 @@ class SelectionCreator constructor(private val polaris: Polaris) {
         return this
     }
 
+    fun themeId(themeId: Int): SelectionCreator {
+        selectionSpec.themeId = themeId
+        return this
+    }
+
     fun forResult(requestCode: Int) {
         val activity = polaris.getActivity()
 
