@@ -74,7 +74,7 @@ class FileItemsAdapter(private val onItemClickListener: OnItemClickListener,
 
             updateCheckedStyle()
 
-            if (fileItem.mimeType.startsWith("image")) {
+            if (fileItem.mimeType?.startsWith("image") == true) {
                 SelectionSpec.INSTANCE.imageEngine.loadImage(
                         itemView.context,
                         iconView,

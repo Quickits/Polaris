@@ -14,8 +14,8 @@ data class FileItem(
         val icon: Uri,
         var size: String,
         val lastModifyTime: Long,
-        val mimeType: String,   // file only
-        val extension: String,  // file only
+        val mimeType: String?,   // file only
+        val extension: String?,  // file only
         val absolutePath: String,
         val isDir: Boolean,
         var isParent: Boolean
@@ -50,7 +50,8 @@ data class FileItem(
                 if (mimeType.startsWith("image")) {
                     Uri.parse("file://${file.absolutePath}")
                 } else {
-                    SelectionSpec.INSTANCE.extensionIconEngine?.getFileExtensionIcon(extension) ?: Uri.EMPTY
+                    SelectionSpec.INSTANCE.extensionIconEngine?.getFileExtensionIcon(extension)
+                            ?: Uri.EMPTY
                 }
             }
 
